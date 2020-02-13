@@ -3,9 +3,6 @@
            https://api.github.com/users/<your name>
 */
 
-// axios.get('https://api.github.com/users/AlexandroM1234').then(response=>{
-//   console.log(response.data)
-// })
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -54,33 +51,95 @@ function cardCreator(followersArray){
   // making elements on the page
   //main container
   const newCard = document.createElement('div');
+
   const userImg = document.createElement('img');
 
   //sub-container
   const subContainer = document.createElement('div');
+
   const realName = document.createElement('h3');
+
   const userName = document.createElement('p');
+
   const location = document.createElement('p');
+
   const profile = document.createElement('p');
+
 
   // anchor that's nested inside userProfile
   const gitHub = document.createElement('a');
 
   // back to nested inside the subcontainer
   const followers = document.createElement('p');
+
   const following = document.createElement('p');
+
   const bio = document.createElement('p');
+
+  // parent child relationship
+
+  //newCard is parent
+  newCard.appendChild(userImg);
+
+  newCard.appendChild(subContainer);
+
+  //sub-container is child of newCard and hold everything else
+  subContainer.appendChild(realName);
+
+  subContainer.appendChild(userName);
+
+  subContainer.appendChild(location);
+
+  subContainer.appendChild(profile);
+
+  //profile is the parent of the gitHub link
+  profile.appendChild(gitHub);
+
+  subContainer.appendChild(followers);
+
+  subContainer.appendChild(following);
+
+  subContainer.appendChild(bio)
 
   // element classes
   newCard.classList.add('card');
+
   subContainer.classList.add('card-info');
+
   realName.classList.add('name');
+
   userName.classList.add('username');
 
+
   // defining what elements are
+  userImg.src = data.avatar_url;
 
+  realName.textContent = data.name;
 
+  userName.textContent = data.login;
+
+  location.textContent = data.location;
+
+  gitHub.textContent = data.html_url;
+
+  followers.textContent = data.followers;
+
+  following.textContent = data.following;
+
+  bio.textContent = data.bio;
+
+return newCard; 
 }
+
+const placeCards = document.querySelector('cards')
+
+axios.get('https://api.github.com/users/AlexandroM1234')
+.then(response=>{
+  console.log(response.data)
+  // response.data.message.forEach(item=>{
+  // placeCards.appendChild(cardCreator(item))  
+  // })
+})
 
 
 /* List of LS Instructors Github username's: 
