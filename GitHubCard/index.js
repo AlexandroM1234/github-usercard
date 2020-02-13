@@ -3,9 +3,9 @@
            https://api.github.com/users/<your name>
 */
 
-axios.get('https://api.github.com/users/AlexandroM1234').then(response=>{
-  console.log(response.data)
-})
+// axios.get('https://api.github.com/users/AlexandroM1234').then(response=>{
+//   console.log(response.data)
+// })
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -49,6 +49,38 @@ const followersArray = [];
 </div>
 
 */
+
+function cardCreator(followersArray){
+  // making elements on the page
+  //main container
+  const newCard = document.createElement('div');
+  const userImg = document.createElement('img');
+
+  //sub-container
+  const subContainer = document.createElement('div');
+  const realName = document.createElement('h3');
+  const userName = document.createElement('p');
+  const location = document.createElement('p');
+  const profile = document.createElement('p');
+
+  // anchor that's nested inside userProfile
+  const gitHub = document.createElement('a');
+
+  // back to nested inside the subcontainer
+  const followers = document.createElement('p');
+  const following = document.createElement('p');
+  const bio = document.createElement('p');
+
+  // element classes
+  newCard.classList.add('card');
+  subContainer.classList.add('card-info');
+  realName.classList.add('name');
+  userName.classList.add('username');
+
+  // defining what elements are
+
+
+}
 
 
 /* List of LS Instructors Github username's: 
