@@ -25,7 +25,7 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml' , 'luishrd', 'bigkne'];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -47,7 +47,7 @@ const followersArray = [];
 
 */
 
-function cardCreator(followersArray){
+function cardCreator(items){
   // making elements on the page
   //main container
   const newCard = document.createElement('div');
@@ -112,36 +112,36 @@ function cardCreator(followersArray){
 
 
   // defining what elements are
-  userImg.src = data.avatar_url;
+  userImg.src = avatar_url;
 
-  realName.textContent = data.name;
+  realName.textContent = name;
 
-  userName.textContent = data.login;
+  userName.textContent =login;
 
-  location.textContent = data.location;
+  location.textContent = location;
 
-  gitHub.textContent = data.html_url;
+  gitHub.textContent = html_url;
 
-  followers.textContent = data.followers;
+  followers.textContent =followers;
 
-  following.textContent = data.following;
+  following.textContent = following;
 
-  bio.textContent = data.bio;
+  bio.textContent = bio;
 
-return newCard; 
+  return newCard; 
 }
 
-const placeCards = document.querySelector('cards')
+const placeCards = document.querySelector('.cards')
 
 axios.get('https://api.github.com/users/AlexandroM1234')
 .then(response=>{
+  // console.log(response.data)
+  const myCard=cardCreator(response.data)
   console.log(response.data)
-  // response.data.message.forEach(item=>{
-  // placeCards.appendChild(cardCreator(item))  
-  // })
 })
-
-
+.catch(error=>{
+  console.log(error)
+})
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
