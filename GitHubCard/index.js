@@ -47,7 +47,7 @@ const followersArray = ['tetondan', 'dustinmyers', 'justsml' , 'luishrd', 'bigkn
 
 */
 
-function cardCreator(items){
+function cardCreator(userInfo){
   // making elements on the page
   //main container
   const newCard = document.createElement('div');
@@ -112,21 +112,21 @@ function cardCreator(items){
 
 
   // defining what elements are
-  userImg.src = avatar_url;
+  userImg.src =userInfo.avatar_url;
 
-  realName.textContent = name;
+  realName.textContent = userInfo.name;
 
-  userName.textContent =login;
+  userName.textContent =userInfo.login;
 
-  location.textContent = location;
+  location.textContent = `Location: ${userInfo.location}`;
 
-  gitHub.textContent = html_url;
+  gitHub.textContent = `Profile: ${userInfo.html_url}`;
 
-  followers.textContent =followers;
+  followers.textContent =`Followers: ${userInfo.followers}`;
 
-  following.textContent = following;
+  following.textContent = `Following: ${userInfo.following}`;
 
-  bio.textContent = bio;
+  bio.textContent =` Bio: ${userInfo.bio}`;
 
   return newCard; 
 }
@@ -135,12 +135,19 @@ const placeCards = document.querySelector('.cards')
 
 axios.get('https://api.github.com/users/AlexandroM1234')
 .then(response=>{
-  // console.log(response.data)
-  const myCard=cardCreator(response.data)
-  console.log(response.data)
+  const dataObject=response.data
+  const card = cardCreator(dataObject)
+  placeCards.appendChild(card)
 })
 .catch(error=>{
   console.log(error)
+})
+
+followersArray.forEach(follower=>{
+  axios.get(`https://api.github.com/users/${follower}`).then(response=>{
+    const arrayCard = cardCreator(response.data);
+    placeCards.appendChild(arrayCard)
+  })
 })
 /* List of LS Instructors Github username's: 
   tetondan
