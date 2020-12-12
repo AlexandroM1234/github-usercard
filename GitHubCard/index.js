@@ -3,6 +3,7 @@
            https://api.github.com/users/<your name>
 */
 
+
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
    data in order to use it to build your component function 
@@ -24,7 +25,7 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = ['tetondan', 'dustinmyers', 'justsml' , 'luishrd', 'bigkne'];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -46,6 +47,108 @@ const followersArray = [];
 
 */
 
+function cardCreator(userInfo){
+  // making elements on the page
+  //main container
+  const newCard = document.createElement('div');
+
+  const userImg = document.createElement('img');
+
+  //sub-container
+  const subContainer = document.createElement('div');
+
+  const realName = document.createElement('h3');
+
+  const userName = document.createElement('p');
+
+  const location = document.createElement('p');
+
+  const profile = document.createElement('p');
+
+
+  // anchor that's nested inside userProfile
+  const gitHub = document.createElement('a');
+
+  // back to nested inside the subcontainer
+  const followers = document.createElement('p');
+
+  const following = document.createElement('p');
+
+  const bio = document.createElement('p');
+
+  // parent child relationship
+
+  //newCard is parent
+  newCard.appendChild(userImg);
+
+  newCard.appendChild(subContainer);
+
+  //sub-container is child of newCard and hold everything else
+  subContainer.appendChild(realName);
+
+  subContainer.appendChild(userName);
+
+  subContainer.appendChild(location);
+
+  subContainer.appendChild(profile);
+
+  //profile is the parent of the gitHub link
+  profile.appendChild(gitHub);
+
+  subContainer.appendChild(followers);
+
+  subContainer.appendChild(following);
+
+  subContainer.appendChild(bio)
+
+  // element classes
+  newCard.classList.add('card');
+
+  subContainer.classList.add('card-info');
+
+  realName.classList.add('name');
+
+  userName.classList.add('username');
+
+
+  // defining what elements are
+  userImg.src =userInfo.avatar_url;
+
+  realName.textContent = userInfo.name;
+
+  userName.textContent =userInfo.login;
+
+  location.textContent = `Location: ${userInfo.location}`;
+
+  gitHub.textContent = `Profile: ${userInfo.html_url}`;
+
+  followers.textContent =`Followers: ${userInfo.followers}`;
+
+  following.textContent = `Following: ${userInfo.following}`;
+
+  bio.textContent =` Bio: ${userInfo.bio}`;
+
+  return newCard; 
+}
+
+const placeCards = document.querySelector('.cards')
+
+axios.get('https://api.github.com/users/AlexandroM1234')
+.then(response=>{
+  const dataObject=response.data
+  const card = cardCreator(dataObject)
+  placeCards.appendChild(card)
+})
+.catch(error=>{
+  console.log(error)
+})
+
+followersArray.forEach(follower=>{
+  axios.get(`https://api.github.com/users/${follower}`).then(response=>{
+    const arrayCard = cardCreator(response.data);
+    placeCards.appendChild(arrayCard)
+  })
+})
 /* List of LS Instructors Github username's: 
   tetondan
   dustinmyers
